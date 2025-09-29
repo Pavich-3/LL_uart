@@ -8,6 +8,7 @@ extern "C" {
 #include "main.h"
 
 void UART_Init(LL_USART_InitTypeDef* uartHandle);
+void sendChar(char ch);
 
 #ifdef __cplusplus
 }

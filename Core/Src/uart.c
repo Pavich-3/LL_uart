@@ -24,3 +24,10 @@ void UART_Init(LL_USART_InitTypeDef* uartHandle)
 	uartHandle->OverSampling = LL_USART_OVERSAMPLING_16;
 	LL_USART_Init(USART1, uartHandle);
 }
+
+void sendChar(char ch)
+{
+	while(!LL_USART_IsActiveFlag_TXE(USART1));
+
+	LL_USART_TransmitData8(USART1, ch);
+}

@@ -1,14 +1,17 @@
-#include <uart.h>
 #include "main.h"
+#include "uart.h"
+
+LL_USART_InitTypeDef uartHandle = {0};
 
 void SystemClock_Config(void);
 
 int main(void)
 {
-  while (1)
-  {
-
-  }
+	UART_Init(&uartHandle);
+	while (1)
+	{
+		sendChar('A');
+	}
 }
 
 void SystemClock_Config(void)
