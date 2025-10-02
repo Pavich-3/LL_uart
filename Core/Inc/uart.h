@@ -9,6 +9,7 @@ extern "C" {
 
 void UART_Init(LL_USART_InitTypeDef* uartHandle);
 void sendChar(char ch);
+char readChar(void);
 
 #ifdef __cplusplus
 }

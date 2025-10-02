@@ -6,7 +6,7 @@ void UART_Init(LL_USART_InitTypeDef* uartHandle)
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_USART1);
 
 	LL_GPIO_InitTypeDef GPIO_InitSturct = {
-			.Pin = LL_GPIO_PIN_9,
+			.Pin = LL_GPIO_PIN_9 | LL_GPIO_PIN_10,
 			.Mode = LL_GPIO_MODE_ALTERNATE,
 			.OutputType = LL_GPIO_OUTPUT_PUSHPULL,
 			.Pull = LL_GPIO_PULL_NO,
@@ -19,7 +19,7 @@ void UART_Init(LL_USART_InitTypeDef* uartHandle)
 	uartHandle->DataWidth = LL_USART_DATAWIDTH_8B;
 	uartHandle->StopBits = LL_USART_STOPBITS_1;
 	uartHandle->Parity = LL_USART_PARITY_NONE;
-	uartHandle->TransferDirection = LL_USART_DIRECTION_TX;
+	uartHandle->TransferDirection = LL_USART_DIRECTION_TX_RX;
 	uartHandle->HardwareFlowControl = LL_USART_HWCONTROL_NONE;
 	uartHandle->OverSampling = LL_USART_OVERSAMPLING_16;
 	LL_USART_Init(USART1, uartHandle);
@@ -30,4 +30,11 @@ void sendChar(char ch)
 	while(!LL_USART_IsActiveFlag_TXE(USART1));
 
 	LL_USART_TransmitData8(USART1, ch);
+}
+
+char readChar(void)
+{
+	while(!LL_USART_IsActiveFlag_RXNE(USART1));
+
+	return LL_USART_ReceiveData8(USART1);
 }
